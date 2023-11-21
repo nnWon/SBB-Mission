@@ -2,6 +2,7 @@ package com.ll.sbb.controller;
 
 import com.ll.sbb.domain.question.Question;
 import com.ll.sbb.domain.question.QuestionRepository;
+import com.ll.sbb.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QuestionController {
 
-    private final QuestionRepository questionRepository;
+    private final QuestionService questionService;
 
     @GetMapping("/")
     public String root(){
@@ -22,7 +23,7 @@ public class QuestionController {
 
     @GetMapping("/question/list")
     public String list(Model model) {
-        List<Question> questionList = this.questionRepository.findAll();
+        List<Question> questionList = questionService.getList();
         model.addAttribute("questionList", questionList);
         return "question-list";
     }
