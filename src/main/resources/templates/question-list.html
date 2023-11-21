@@ -8,7 +8,7 @@
     <tbody>
     <tr th:each="question : ${questionList}">
         <td th:text="${question.subject}"></td>
-        <td th:text="${question.createDate}"></td>
+        <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
     </tr>
     </tbody>
 </table>
