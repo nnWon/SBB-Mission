@@ -1,18 +1,29 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container max-w-2xl mx-auto m-8">
+
     <h5 class="text-2xl font-bold py-2">질문등록</h5>
     <div class="divider"></div>
-    <form th:action="@{/question/create}" method="post">
-        <label class="label">
-            <span class="label-text text-lg">제목</span>
-        </label>
-        <input type="text" name="subject" id="subject" placeholder="제목을 입력하세요." class="input input-bordered w-full" />
 
-        <label class="label">
-            <span class="label-text-lg">내용</span>
-        </label>
-        <textarea name="content" id="content" placeholder="내용을 입력하세요."  class="textarea textarea-bordered w-full"></textarea>
-        <input type="submit" value="저장하기"  class="btn btn-sm btn-active btn-primary my-8">
+    <form th:action="@{/question/create}" th:object="${questionForm}" method="post">
+        <div th:if="${#fields.hasAnyErrors()}">
+            <div role="alert" class="alert alert-error m-2" th:each="err : ${#fields.allErrors()}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span th:text="${err}">Error.</span>
+
+            </div>
+        </div>
+        <label class="label-text text-lg" for="subject">제목</label>
+        <input type="text" th:field="*{subject}" id="subject" placeholder="제목을 입력하세요."
+               class="input input-bordered w-full mb-3"/>
+
+        <label class="label-text-lg mb-3" for="content">내용</label>
+        <textarea th:field="*{content}" id="content" placeholder="내용을 입력하세요."
+                  class="textarea textarea-bordered w-full mb-3"></textarea>
+        <input type="submit" value="저장하기" class="btn btn-sm btn-active btn-primary my-8">
     </form>
 </div>
 
