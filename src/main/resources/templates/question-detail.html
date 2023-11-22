@@ -20,16 +20,7 @@
     </div>
 
     <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="space-y-4 my-8">
-        <div th:if="${#fields.hasAnyErrors()}">
-            <div role="alert" class="alert alert-error m-2" th:each="err : ${#fields.allErrors()}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-                     viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                <span th:text="${err}">Error.</span>
-            </div>
-        </div>
+        <div th:replace="~{form-errors :: formErrorsFragment}"></div>
         <textarea th:field="*{content}" id="content" class="w-full p-2 border rounded-md"></textarea>
         <input type="submit" value="답변등록"  class="btn btn-sm btn-primary my-8">
     </form>
