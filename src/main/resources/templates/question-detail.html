@@ -1,0 +1,30 @@
+
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container max-w-2xl mx-auto m-8">
+    <h2 class="text-4xl font-bold py-2" th:text="${question.subject}"></h2>
+    <div class="divider"></div>
+    <div class="card my-8 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <p th:text="${question.content}"></p>
+            <div class="card-actions justify-end">
+                <div class="badge badge-ghost" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+
+    <h5 class="text-xl font-semibold mb-4" th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+    <div class="chat chat-start my-3" th:each="answer,loop:${question.answerList}">
+        <div class="chat-header">[[${loop.count}]]번 답변</div>
+        <div class="chat-bubble" th:text="${answer.content}"></div>
+    </div>
+
+    <form th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="space-y-4 my-8">
+        <div th:replace="~{form-errors :: formErrorsFragment}"></div>
+        <textarea th:field="*{content}" id="content" class="w-full p-2 border rounded-md"></textarea>
+        <input type="submit" value="답변등록"  class="btn btn-sm btn-primary my-8">
+    </form>
+</div>
+
+
+
