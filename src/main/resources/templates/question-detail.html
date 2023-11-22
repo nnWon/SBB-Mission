@@ -1,14 +1,32 @@
-<h1 th:text="${question.subject}"></h1>
-<div th:text="${question.content}"></div>
+<link rel="stylesheet" href="/global.css">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.8/dist/full.min.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<body>
+<div class="container max-w-2xl mx-auto m-8">
+    <h2 class="text-4xl font-bold py-2" th:text="${question.subject}"></h2>
+    <div class="divider"></div>
+    <div class="card my-8 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <p th:text="${question.content}"></p>
+            <div class="card-actions justify-end">
+                <div class="badge badge-ghost" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
 
-<h5 th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
-<div>
-    <ul>
-        <li th:each="answer : ${question.answerList}" th:text="${answer.content}"></li>
-    </ul>
+    <h5 class="text-xl font-semibold mb-4" th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+    <div class="chat chat-start my-3" th:each="answer,loop:${question.answerList}">
+        <div class="chat-header">[[${loop.count}]]번 답변</div>
+        <div class="chat-bubble" th:text="${answer.content}"></div>
+    </div>
+
+    <form th:action="@{|/answer/create/${question.id}|}" method="post" class="space-y-4 my-8">
+        <textarea name="content" id="content" class="w-full p-2 border rounded-md"></textarea>
+        <input type="submit" value="답변등록" class="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600">
+    </form>
 </div>
 
-<form th:action="@{|/answer/create/${question.id}|}" method="post">
-    <textarea name="content" id="content" rows="15"></textarea>
-    <input type="submit" value="답변등록">
-</form>
+</body>
+
+

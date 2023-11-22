@@ -1,14 +1,25 @@
-<table>
-    <thead>
-    <tr>
-        <th>제목</th>
-        <th>작성일시</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="question, index : ${questionList}">
-        <td><a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a></td>
-        <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-    </tr>
-    </tbody>
-</table>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.8/dist/full.min.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<body>
+<div class="flex justify-center mt-10">
+    <div class="overflow-x-auto w-1/2">
+        <table class="table mx-auto">
+            <!-- head -->
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성일시</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="hover" th:each="question,loop: ${questionList}">
+                <th>[[${loop.count}]]</th>
+                <td><a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a></td>
+                <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
