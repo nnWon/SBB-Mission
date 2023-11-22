@@ -1,6 +1,7 @@
 package com.ll.sbb.controller;
 
 import com.ll.sbb.domain.question.Question;
+import com.ll.sbb.dto.AnswerForm;
 import com.ll.sbb.dto.QuestionForm;
 import com.ll.sbb.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class QuestionController {
     }
 
     @GetMapping("/detail/{questionId}")
-    public String detail(Model model, @PathVariable Integer questionId) {
+    public String detail(Model model, @PathVariable Integer questionId, AnswerForm answerForm) {
         Question question = questionService.getQuestion(questionId);
         model.addAttribute("question", question);
         return "question-detail";
