@@ -1,8 +1,6 @@
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-<link href="https://cdn.jsdelivr.net/npm/daisyui@4.0.8/dist/full.min.css" rel="stylesheet" type="text/css"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<body>
-<div class="flex justify-center mt-10">
+
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="flex justify-center mt-10">
     <div class="overflow-x-auto w-1/2">
         <table class="table mx-auto">
             <!-- head -->
@@ -22,4 +20,3 @@
         </table>
     </div>
 </div>
-</body>
