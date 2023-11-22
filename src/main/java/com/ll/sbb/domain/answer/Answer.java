@@ -20,5 +20,12 @@ public class Answer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
+
+    protected Answer() {}
+
+    public Answer(String content, Question question) {
+        this.content = content;
+        this.question = question;
+    }
 }
 
