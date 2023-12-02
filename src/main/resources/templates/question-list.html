@@ -1,6 +1,5 @@
-
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container max-w-2xl mx-auto m-8">
+<div layout:fragment="content">
     <div class="overflow-x-auto">
         <table class="table">
             <!-- head -->
@@ -12,13 +11,31 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="hover" th:each="question,loop: ${questionList}">
-                <th>[[${loop.count}]]</th>
-                <td><a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a></td>
+            <tr class="hover" th:each="question,loop : ${paging}">
+                <th>[[${paging.getTotalElements - (paging.number * paging.size) - loop.index}]]</th>
+                <td>
+                    <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
+                    <span class="badge text-xs" th:if="${#lists.size(question.answerList) > 0}"
+                          th:text="${#lists.size(question.answerList)}"></span>
+                </td>
                 <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
             </tr>
             </tbody>
         </table>
-        <a th:href="@{/question/create}" class="btn btn-sm btn-active btn-primary my-8">질문 등록하기</a>
+        <div class="join flex justify-center py-2" th:if="${!paging.isEmpty()}">
+            <a class="join-item btn" th:classappend="${!paging.hasPrevious} ? 'disabled'"
+               th:href="@{|?page=${paging.number-1}|}">«</a>
+            <div th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                 th:if="${page >= paging.number-5 and page <= paging.number+5}">
+                <a class="join-item btn" th:classappend="${page == paging.number} ? 'btn-active'" th:text="${page}+1"
+                   th:href="@{|?page=${page}|}"></a>
+            </div>
+            <a class="join-item btn btn" th:classappend="${!paging.hasNext} ? 'disabled'"
+               th:href="@{|?page=${paging.number+1}|}">»</a>
+        </div>
+        <div class="flex">
+            <a th:href="@{/question/create}" class="btn btn-sm btn-active btn-primary my-8">질문 등록하기</a>
+        </div>
     </div>
 </div>
+

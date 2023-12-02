@@ -9,10 +9,16 @@
 
     <title>Hello, sbb!</title>
 </head>
-<body>
-    <script src="https://cdn.tailwindcss.com"></script>
+<body >
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- 네비게이션바 -->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+<div class="container max-w-2xl mx-auto m-8">
     <!-- 기본 템플릿 안에 삽입될 내용 Start -->
-    <th:block layout:fragment="content"></th:block>
+    <th:block layout:fragment="content" ></th:block>
     <!-- 기본 템플릿 안에 삽입될 내용 End -->
+</div>
+
 </body>
 </html>
